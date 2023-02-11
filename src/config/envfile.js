@@ -8,5 +8,7 @@ dotenv.config({
 module.exports = {
   dbUrl: process.env.DB_URL,
   appUrl: process.env.APP_URL,
-  port: process.env.PORT
+  port: process.env.PORT,
+  secret: process.env.TOKEN_SECRET,
+  expiresIn: process.env.TOKEN_EXPIRESIN
 }
