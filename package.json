@@ -1,10 +1,10 @@
 {
-  "name": "focusnfe",
+  "name": "api-zen-organicos",
   "version": "1.0.0",
-  "description": "",
+  "description": "API to make request in Zen Orgânicos ",
   "main": "src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server.js",
     "dev": "nodemon"
   },
   "keywords": [],
