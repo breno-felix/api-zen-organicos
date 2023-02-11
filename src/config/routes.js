@@ -1,5 +1,5 @@
-const userRoute = require('../routes/user/user.route')
+const UserRoute = require('../routes/user/UserRoute')
 
 module.exports = (app) => {
-  app.use('/api', userRoute)
+  app.use('/api', UserRoute)
 }
