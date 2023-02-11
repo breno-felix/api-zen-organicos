@@ -1,5 +1,5 @@
-const app = require('./app')
-const env = require('./envfile')
+const app = require('./config/app')
+const env = require('./config/envfile')
 const mongoose = require('mongoose')
 
 console.log('Wait connecting to the database')

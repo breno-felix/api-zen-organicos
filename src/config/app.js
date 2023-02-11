@@ -1,5 +1,6 @@
 const express = require('express')
 const routes = require('./routes')
+const middlewares = require('./middleware')
 
 class App {
   constructor() {
@@ -10,11 +11,11 @@ class App {
   }
 
   middlewares() {
-    this.app.use(express.json())
+    middlewares(this.app)
   }
 
   routes() {
-    this.app.use('/api', routes)
+    routes(this.app)
   }
 }
 
