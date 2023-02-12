@@ -286,6 +286,54 @@ module.exports = {
           }
         }
       }
+    },
+    '/update-order/{order_id}': {
+      patch: {
+        security: [
+          {
+            bearerAuth: []
+          }
+        ],
+        summary: "Update a order's status",
+        description:
+          "This endpoint updates a order's status with the given status. Needed login with admin user ",
+        tags: ['Order'],
+        parameters: [
+          {
+            name: 'order_id',
+            in: 'path',
+            description: 'ID of order to update',
+            required: true,
+            schema: {
+              type: 'string',
+              description: "The order's id, it must exist",
+              required: true,
+              example: '63e41caae48b4160afb18192'
+            }
+          }
+        ],
+        requestBody: {
+          required: true,
+          $ref: '#/components/requestBodies/UpdateOrder'
+        },
+        responses: {
+          204: {
+            $ref: '#/components/responses/NoContent'
+          },
+          400: {
+            $ref: '#/components/responses/BadRequest'
+          },
+          401: {
+            $ref: '#/components/responses/Unauthorized'
+          },
+          403: {
+            $ref: '#/components/responses/Forbidden'
+          },
+          500: {
+            $ref: '#/components/responses/ServerError'
+          }
+        }
+      }
     }
   },
   components: {
