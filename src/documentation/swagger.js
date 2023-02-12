@@ -190,6 +190,54 @@ module.exports = {
         }
       }
     },
+    '/update-product/{product_id}': {
+      put: {
+        security: [
+          {
+            bearerAuth: []
+          }
+        ],
+        summary: 'Update a product',
+        description:
+          'This endpoint updates a product with the given name, price or supplier. Needed login with admin user ',
+        tags: ['Product'],
+        parameters: [
+          {
+            name: 'product_id',
+            in: 'path',
+            description: 'ID of product to update',
+            required: true,
+            schema: {
+              type: 'string',
+              description: "The product's id, it must exist",
+              required: true,
+              example: '63e41caae48b4160afb18192'
+            }
+          }
+        ],
+        requestBody: {
+          required: true,
+          $ref: '#/components/requestBodies/UpdateProduct'
+        },
+        responses: {
+          204: {
+            $ref: '#/components/responses/NoContent'
+          },
+          400: {
+            $ref: '#/components/responses/BadRequest'
+          },
+          401: {
+            $ref: '#/components/responses/Unauthorized'
+          },
+          403: {
+            $ref: '#/components/responses/Forbidden'
+          },
+          500: {
+            $ref: '#/components/responses/ServerError'
+          }
+        }
+      }
+    },
     '/index-order': {
       get: {
         security: [
@@ -772,35 +820,28 @@ module.exports = {
       },
       UpdateProduct: {
         content: {
-          'multipart/form-data': {
+          'application/json': {
             schema: {
               type: 'object',
               properties: {
                 name: {
                   type: 'string',
                   description: "The product's name",
-                  example: 'Batata Frita'
+                  required: true,
+                  example: 'Pinhão 1kg'
                 },
                 price: {
                   type: 'number',
                   description: "The product's price",
+                  required: true,
                   minimum: 0,
                   example: 10.5
                 },
-                category_id: {
+                supplier: {
                   type: 'string',
-                  description: "The product's category, it must exist",
-                  example: '63e41caae48b4160afb18192'
-                },
-                offer: {
-                  type: 'boolean',
-                  description: "The product's offer, default to false",
-                  example: true
-                },
-                file: {
-                  type: 'string',
-                  description: "The product's image (jpeg, pjpeg, png, gif)",
-                  format: 'binary'
+                  description: "The product's supplier",
+                  required: true,
+                  example: 'SUKHAVATI'
                 }
               }
             }
