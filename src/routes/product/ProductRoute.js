@@ -19,5 +19,11 @@ route.post(
   multerMiddleware,
   ProductUploadController.upload
 )
+route.put(
+  '/update-product/:product_id',
+  authMiddleware,
+  authAdminMiddleware,
+  ProductController.update
+)
 
 module.exports = route
