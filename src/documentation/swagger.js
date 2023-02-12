@@ -122,6 +122,40 @@ module.exports = {
         }
       }
     },
+    '/upload-product': {
+      post: {
+        security: [
+          {
+            bearerAuth: []
+          }
+        ],
+        summary: 'Upload many product',
+        description:
+          'This endpoint create many new product with give csv file. Needed login with admin user ',
+        tags: ['Product'],
+        requestBody: {
+          required: true,
+          $ref: '#/components/requestBodies/UploadProduct'
+        },
+        responses: {
+          201: {
+            $ref: '#/components/responses/Created'
+          },
+          400: {
+            $ref: '#/components/responses/BadRequest'
+          },
+          401: {
+            $ref: '#/components/responses/Unauthorized'
+          },
+          403: {
+            $ref: '#/components/responses/Forbidden'
+          },
+          500: {
+            $ref: '#/components/responses/ServerError'
+          }
+        }
+      }
+    },
     '/index-product': {
       get: {
         security: [
@@ -550,6 +584,24 @@ module.exports = {
           }
         },
         description: 'Product object needed to create a new product.',
+        required: true
+      },
+      UploadProduct: {
+        content: {
+          'multipart/form-data': {
+            schema: {
+              type: 'object',
+              properties: {
+                file: {
+                  type: 'string',
+                  description: 'The csv file with many products',
+                  format: 'binary'
+                }
+              }
+            }
+          }
+        },
+        description: 'File object needed to upload many products.',
         required: true
       },
       NewOrder: {
