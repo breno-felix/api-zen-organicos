@@ -220,6 +220,37 @@ module.exports = {
           }
         }
       }
+    },
+    '/upload-order': {
+      post: {
+        security: [
+          {
+            bearerAuth: []
+          }
+        ],
+        summary: 'Upload many order',
+        description:
+          'This endpoint creates a new order with give csv file. Needed login.',
+        tags: ['Order'],
+        requestBody: {
+          required: true,
+          $ref: '#/components/requestBodies/UploadOrder'
+        },
+        responses: {
+          201: {
+            $ref: '#/components/responses/Created'
+          },
+          400: {
+            $ref: '#/components/responses/BadRequest'
+          },
+          401: {
+            $ref: '#/components/responses/Unauthorized'
+          },
+          500: {
+            $ref: '#/components/responses/ServerError'
+          }
+        }
+      }
     }
   },
   components: {
@@ -636,6 +667,24 @@ module.exports = {
           }
         },
         description: 'Products array needed to create a new order.',
+        required: true
+      },
+      UploadOrder: {
+        content: {
+          'multipart/form-data': {
+            schema: {
+              type: 'object',
+              properties: {
+                file: {
+                  type: 'string',
+                  description: 'The csv file with new order',
+                  format: 'binary'
+                }
+              }
+            }
+          }
+        },
+        description: 'File object needed to upload new order.',
         required: true
       },
       UpdateProduct: {
