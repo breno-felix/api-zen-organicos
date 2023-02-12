@@ -18,5 +18,11 @@ route.post(
   multerMiddleware,
   OrderUploadController.upload
 )
+route.patch(
+  '/update-order/:order_id',
+  authMiddleware,
+  authAdminMiddleware,
+  OrderController.update
+)
 
 module.exports = route
