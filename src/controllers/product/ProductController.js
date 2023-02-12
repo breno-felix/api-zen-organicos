@@ -4,7 +4,7 @@ const yup = require('yup')
 const store = async (request, response) => {
   const schema = yup.object().shape({
     name: yup.string().required(),
-    price: yup.number().required(),
+    price: yup.number().required().positive().moreThan(0),
     supplier: yup.string().required()
   })
 

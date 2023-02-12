@@ -15,8 +15,8 @@ module.exports = (request, response, next) => {
       if (error) {
         throw new Error()
       }
-
       request.userId = decoded.id
+      request.userName = decoded.name
 
       return next()
     })

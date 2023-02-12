@@ -29,9 +29,13 @@ const store = async (request, response) => {
     return response.status(401).json({ error: 'Unauthorized' })
   }
 
-  const token = jwt.sign({ id: userExists._id }, env.secret, {
-    expiresIn: env.expiresIn
-  })
+  const token = jwt.sign(
+    { id: userExists._id, name: userExists.name },
+    env.secret,
+    {
+      expiresIn: env.expiresIn
+    }
+  )
   return response.status(200).json({ token })
 }
 
