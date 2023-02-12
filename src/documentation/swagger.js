@@ -190,6 +190,41 @@ module.exports = {
         }
       }
     },
+    '/index-order': {
+      get: {
+        security: [
+          {
+            bearerAuth: []
+          }
+        ],
+        summary: 'Show all orders',
+        description:
+          'This endpoint show all orders and needed login with admin user.',
+        tags: ['Order'],
+        responses: {
+          200: {
+            description: 'Ok',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    $ref: '#/components/schemas/Order'
+                  }
+                }
+              }
+            }
+          },
+          401: {
+            $ref: '#/components/responses/Unauthorized'
+          },
+          500: {
+            $ref: '#/components/responses/ServerError'
+          }
+        }
+      }
+    },
     '/new-order': {
       post: {
         security: [
