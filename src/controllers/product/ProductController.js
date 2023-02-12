@@ -23,4 +23,9 @@ const store = async (request, response) => {
     )
 }
 
-module.exports = { store }
+const index = async (request, response) => {
+  const products = await ProductService.loadAll()
+  return response.status(200).json(products)
+}
+
+module.exports = { store, index }
