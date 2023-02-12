@@ -120,6 +120,40 @@ module.exports = {
           }
         }
       }
+    },
+    '/index-product': {
+      get: {
+        security: [
+          {
+            bearerAuth: []
+          }
+        ],
+        summary: 'Show all products',
+        description: 'This endpoint show all products and needed login.',
+        tags: ['Product'],
+        responses: {
+          200: {
+            description: 'Ok',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    type: 'object',
+                    $ref: '#/components/schemas/Product'
+                  }
+                }
+              }
+            }
+          },
+          401: {
+            $ref: '#/components/responses/Unauthorized'
+          },
+          500: {
+            $ref: '#/components/responses/ServerError'
+          }
+        }
+      }
     }
   },
   components: {
