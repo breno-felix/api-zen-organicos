@@ -25,6 +25,9 @@ const store = async (request, response) => {
   const editedProductsOrder = await Promise.all(
     products.map(async (item) => {
       const product = await ProductService.loadById(item.product_id)
+      if (!product) {
+        return response.status(400).json({ error: 'product must exist' })
+      }
       const newItem = {
         product: {
           id: product.id,
