@@ -1,5 +1,5 @@
-const ProductService = require('../../services/product/ProductService')
 const OrderService = require('../../services/order/OrderService')
+const ProductService = require('../../services/product/ProductService')
 const yup = require('yup')
 
 const store = async (request, response) => {
@@ -57,4 +57,9 @@ const store = async (request, response) => {
     )
 }
 
-module.exports = { store }
+const index = async (request, response) => {
+  const orders = await OrderService.loadAll()
+  return response.status(200).json(orders)
+}
+
+module.exports = { store, index }
