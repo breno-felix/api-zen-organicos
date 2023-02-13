@@ -21,8 +21,12 @@ module.exports = {
   ],
   servers: [
     {
+      url: 'https://api-zen-organicos.onrender.com',
+      description: 'Production API'
+    },
+    {
       url: env.appUrl,
-      description: 'API de produção'
+      description: 'Test API'
     }
   ],
   paths: {
