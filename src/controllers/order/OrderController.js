@@ -1,6 +1,7 @@
 const OrderService = require('../../services/order/OrderService')
 const ProductService = require('../../services/product/ProductService')
 const yup = require('yup')
+const { Parser } = require('json2csv')
 
 const store = async (request, response) => {
   const schema = yup.object().shape({
@@ -58,8 +59,35 @@ const store = async (request, response) => {
 }
 
 const index = async (request, response) => {
-  const orders = await OrderService.loadAll()
-  return response.status(200).json(orders)
+  try {
+    const orders = await OrderService.loadAll()
+    const editedOrder = orders.map((order) => {
+      return order.products.map((product) => {
+        return {
+          Cliente: order.user.name,
+          Produto: product.product.name,
+          Quantidade: product.quantity,
+          ValorUnitario: product.product.price,
+          ValorTotal: product.value
+        }
+      })
+    })
+
+    const fields = [
+      'Cliente',
+      'Produto',
+      'Quantidade',
+      'ValorUnitario',
+      'ValorTotal'
+    ]
+    const json2csvParser = new Parser({ fields })
+    const csv = json2csvParser.parse(editedOrder[0])
+
+    response.attachment('orders.csv')
+    response.status(200).send(csv)
+  } catch (err) {
+    return response.status(500).json({ error: err.errors })
+  }
 }
 
 const update = async (request, response) => {
