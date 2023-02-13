@@ -21,7 +21,7 @@ module.exports = {
   ],
   servers: [
     {
-      url: 'https://api-zen-organicos.onrender.com',
+      url: 'https://api-zen-organicos.onrender.com/api',
       description: 'Production API'
     },
     {
