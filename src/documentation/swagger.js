@@ -251,18 +251,21 @@ module.exports = {
         ],
         summary: 'Show all orders',
         description:
-          'This endpoint show all orders and needed login with admin user.',
+          'This endpoint show all orders as a csv fila and needed login with admin user.',
         tags: ['Order'],
         responses: {
           200: {
             description: 'Ok',
             content: {
-              'application/json': {
+              'application/octet-stream': {
                 schema: {
-                  type: 'array',
-                  items: {
-                    type: 'object',
-                    $ref: '#/components/schemas/Order'
+                  type: 'string',
+                  format: 'binary'
+                },
+                examples: {
+                  order_csv: {
+                    value:
+                      'Cliente,Produto,Quantidade,ValorUnitario,ValorTotal\nBreno Felix,Couve flor orgânica unidade,3,6,16\nJacir Zen,Cebolinha orgânica maço,6,3,18\n'
                   }
                 }
               }
